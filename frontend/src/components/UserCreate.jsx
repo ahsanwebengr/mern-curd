@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../redux/features/user.slice";
 import Spinner from "./Spinner";
+import toast from "react-hot-toast";
 
 const UserCreate = () => {
     const [name, setName] = useState('');
@@ -26,6 +27,7 @@ const UserCreate = () => {
     const moveRouter = (response) => {
         if (response.status) {
             navigate('/');
+            toast.success(response.message);
         }
     };
 

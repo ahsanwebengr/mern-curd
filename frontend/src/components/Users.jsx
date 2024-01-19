@@ -2,27 +2,34 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { deleteUser, getAllUsers } from "../redux/features/user.slice";
+import toast from "react-hot-toast";
 
 const Users = () => {
     const [users, setUsers] = useState([]);
     const dispatch = useDispatch();
 
-    const moveRouter = (response) => {
-        const getUsers = response?.data;
+    const allUserSuccess = (res) => {
+        const getUsers = res?.data;
         setUsers(getUsers);
     };
 
-    const successCallBack = () => {
-        dispatch(getAllUsers({ successCallBack: moveRouter }));
-    };
+    dispatch(getAllUsers({ successCallBack: allUserSuccess }));
 
     useEffect(() => {
-        dispatch(getAllUsers({ successCallBack: moveRouter }));
+        dispatch(getAllUsers({ successCallBack: allUserSuccess }));
     }, [dispatch]);
 
     const handleDelete = (id) => {
-        const sure = confirm('Are you sure you want to delete');
-        sure && dispatch(deleteUser({ id, successCallBack }));
+        const deleteSuccess = (res) => {
+            const confirmation = confirm('Are you sure you want to delete');
+            if (confirmation) {
+                toast.success(res.message);
+            } else {
+                toast.success(res.message);
+            }
+        };
+        dispatch(deleteUser({ id, successCallBack: deleteSuccess }));
+
     };
 
     return (
@@ -59,7 +66,7 @@ const Users = () => {
                                     })
                                 ) : (
                                     <tr>
-                                        <td colSpan="4" className="text-center">
+                                        <td colSpan="4" className="text-center fs-3">
                                             No Record found...
                                         </td>
                                     </tr>

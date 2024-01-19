@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { updateUser, getSingleUser } from "../redux/features/user.slice";
 import Spinner from "./Spinner";
+import toast from "react-hot-toast";
 
 const UserUpdate = () => {
     const { id } = useParams();
@@ -22,8 +23,18 @@ const UserUpdate = () => {
             age,
         };
 
+        const updateSuccess = (res) => {
+            if (res.status) {
+                navigate('/');
+                toast.success(res.message);
+            } else {
+                toast.error(res.message);
+            }
+
+        };
+
         try {
-            await dispatch(updateUser({ id, payload: userData, successCallBack: () => navigate('/') }));
+            await dispatch(updateUser({ id, payload: userData, successCallBack: updateSuccess }));
         } catch (error) {
             console.error('Update user failed:', error);
         }
@@ -61,7 +72,7 @@ const UserUpdate = () => {
                         </div>
 
                         <button type="submit" className="btn btn-success">
-                            {updateLoading ? <Spinner/> : 'Update'}
+                            {updateLoading ? <Spinner /> : 'Update'}
                         </button>
                     </form>
                 </div>
