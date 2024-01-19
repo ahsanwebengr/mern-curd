@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../redux/features/user.slice";
+import Spinner from "./Spinner";
 
 const UserCreate = () => {
     const [name, setName] = useState('');
@@ -9,6 +10,8 @@ const UserCreate = () => {
     const [age, setAge] = useState('');
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const createLoading = useSelector((state) => state?.user?.createUser?.isLoading);
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -45,7 +48,9 @@ const UserCreate = () => {
                             <input type="number" className="form-control" value={age} onChange={e => setAge(e.target.value)} id="age" placeholder="Enter Age" />
                         </div>
 
-                        <button type="submit" className="btn btn-success">Submit</button>
+                        <button type="submit" className="btn btn-success">
+                            {createLoading ? <Spinner /> : 'Submit'}
+                        </button>
                     </form>
                 </div>
             </div>

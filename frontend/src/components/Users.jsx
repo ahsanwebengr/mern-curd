@@ -21,7 +21,8 @@ const Users = () => {
     }, [dispatch]);
 
     const handleDelete = (id) => {
-        dispatch(deleteUser({ id, successCallBack }));
+        const sure = confirm('Are you sure you want to delete');
+        sure && dispatch(deleteUser({ id, successCallBack }));
     };
 
     return (
@@ -50,7 +51,8 @@ const Users = () => {
                                                 <td>{age}</td>
                                                 <td>
                                                     <Link to={`update/${_id}`} className="btn btn-warning me-2">Edit</Link>
-                                                    <button className="btn btn-danger" onClick={() => handleDelete(_id)}>Delete</button>
+                                                    <button className="btn btn-danger me-2" onClick={() => handleDelete(_id)}> Delete </button>
+                                                    <Link to={`view/${_id}`} className="btn btn-secondary me-2">View</Link>
                                                 </td>
                                             </tr>
                                         );
