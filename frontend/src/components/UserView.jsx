@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { updateUser, getSingleUser } from "../redux/features/user.slice";
+import { getSingleUser } from "../redux/features/user.slice";
+import BackButton from "./BackButton";
 
 const UserView = () => {
     const { id } = useParams();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [age, setAge] = useState('');
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
 
@@ -28,7 +28,8 @@ const UserView = () => {
         <div className="vh-100 d-flex align-items-center justify-content-center bg-primary">
             <div className="row w-100 align-items-center justify-content-center">
                 <div className="col-md-5 bg-white shadow rounded p-3">
-                    <h2 className="mb-2">View User</h2>
+                    <BackButton />
+                    <h2 className="mb-4 text-center">View User Details</h2>
                     <form>
                         <div className="mb-3">
                             <label htmlFor="name" className="form-label">Name</label>

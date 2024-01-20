@@ -47,6 +47,12 @@ export const updateById = async (req, res) => {
             return res.status(400).json({ message: 'All fields are required.', status: false });
         }
 
+        const existingUser = await UserModel.findOne({ email: updateFields.email, _id: { $ne: id } });
+
+        if (existingUser) {
+            return res.status(400).json({ message: 'Email is already in use.', status: false });
+        }
+
         const updatedUser = await UserModel.findByIdAndUpdate(id, updateFields, { new: true });
 
         if (updatedUser) {
