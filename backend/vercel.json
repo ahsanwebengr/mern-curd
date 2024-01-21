@@ -2,5 +2,5 @@
   "version": 2,
   "name": "mern-curd",
   "builds": [{ "src": "./index.js", "use": "@vercel/node" }],
-  "routes": [{ "src": "/(.*)", "dest": "/api" }]
+  "routes": [{ "src": "/(.*)", "dest": "/" }]
 }
