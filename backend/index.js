@@ -21,7 +21,7 @@ mongoose.connect(dbStr, {
 });
 
 // Routes 
-app.use('/', user);
+app.use('/api/', user);
 
 // Server running 
 
