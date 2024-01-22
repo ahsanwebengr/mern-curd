@@ -26,6 +26,6 @@ app.use('/', user);
 
 // Server running 
 
-app.listen(port, () => {
+app.listen(port || 3000, () => {
     console.log(`Server is listening on  http://localhost:${port}`);
 });
