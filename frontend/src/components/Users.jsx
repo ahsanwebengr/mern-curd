@@ -51,7 +51,7 @@ const Users = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {users.length > 0 ? (
+                                {users?.length > 0 ? (
                                     users?.map((user, index) => {
                                         const { name, email, age, _id } = user;
                                         return (
